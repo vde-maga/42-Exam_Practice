@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   alpha_mirror.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vde-maga <vde-maga@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/06 16:37:42 by vde-maga          #+#    #+#             */
+/*   Updated: 2025/06/06 16:38:48 by vde-maga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
 int	is_lowercase(char c)
@@ -9,6 +21,7 @@ int	is_uppercase(char c)
 {
 	return (c >= 'A' && c <= 'Z');
 }
+
 void	alpha_mirror(char *str)
 {
 	int	i;
@@ -18,7 +31,7 @@ void	alpha_mirror(char *str)
 	{
 		if (is_lowercase(str[i]))
 			str[i] = 'z' - str[i] + 'a';
-		else if(is_uppercase(str[i]))
+		else if (is_uppercase(str[i]))
 			str[i] = 'Z' - str[i] + 'A';
 		write(1, &str[i], 1);
 		i++;

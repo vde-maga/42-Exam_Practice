@@ -16,12 +16,12 @@
 
 ## Level 02
 
-- [ ] alpha_mirror
-- [ ] camel_to_snake
-- [ ] do_op
-- [ ] ft_atoi
-- [ ] ft_strcmp
-- [ ] ft_strcspn
+- [x] alpha_mirror
+- [x] camel_to_snake
+- [x] do_op
+- [x] ft_atoi
+- [x] ft_strcmp
+- [x] ft_strcspn
 - [ ] ft_strdup
 - [ ] ft_strpbrk
 - [ ] ft_strrev
