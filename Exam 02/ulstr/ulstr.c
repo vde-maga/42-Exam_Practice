@@ -18,17 +18,10 @@ void    ulstr(char *str)
     while (str[i])
     {
         if (is_lowercase(str[i]))
-        {
             str[i] = str[i] - 32;
-            write(1, &str[i], 1);
-        }
         else if (is_uppercase(str[i]))
-        {
             str[i] = str[i] + 32;
-            write(1, &str[i], 1);
-        }
-        else
-            write(1, &str[i], 1);
+        write(1, &str[i], 1);
         i++;
     }
 }
