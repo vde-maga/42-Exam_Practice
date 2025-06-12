@@ -39,18 +39,18 @@
 
 ## Level 03
 
-- [ ] add_prime_sum
+- [x] add_prime_sum
 - [ ] epur_str
 - [ ] expand_str
 - [ ] ft_atoi_base
-- [ ] ft_list_size
+- [x] ft_list_size
 - [ ] ft_range
 - [ ] ft_rrange
-- [ ] hidenp
-- [ ] lcm
+- [x] hidenp
+- [x] lcm
 - [ ] paramsum
 - [ ] pgcd
-- [ ] print_hex
+- [x] print_hex
 - [ ] rstr_capitalizer
 - [ ] str_capitalizer
 - [ ] tab_mult 
@@ -58,12 +58,12 @@
 ## Level 04
 
 - [ ] flood_fill
-- [ ] fprime
-- [ ] ft_itoa
+- [x] fprime
+- [x] ft_itoa
 - [ ] ft_list_foreach
 - [ ] ft_list_remove_if
 - [ ] ft_split
 - [ ] rev_wstr
-- [ ] rostring
+- [x] rostring
 - [ ] sort_int_tab
 - [ ] sort_list

@@ -1,87 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_prime_sum.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vde-maga <vde-maga@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/12 15:35:48 by vde-maga          #+#    #+#             */
+/*   Updated: 2025/06/12 15:48:52 by vde-maga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
-
-int ft_atoi(char *str)
-{
-    int i;
-    int result;
-    int signal;
-
-    i = 0;
-    result = 0;
-    signal = 1;
-    while (str[i] == ' ' && str[i] == '\t')
-        i++;
-    if (str[i] == '+' || str[i] == '-')
-    {
-        if (str[i] == '-')
-            signal = signal * -1;
-        i++;
-    }
-    while (str[i] >= '0' && str[i] <= '9')
-    {
-        result = result * 10 + (str[i] - '0');
-        i++;
-    }
-    return (result * signal);
-}
 
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void	ft_putnbr(long nbr)
+int	is_prime(long n)
 {
-	if (nbr < 0)
+	int	i;
+
+	if (n < 2)
+		return (0);
+	i = 2;
+	while (i * i <= n)
+	{
+		if (n % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_putnbr(long n)
+{
+	if (n < 0)
 	{
 		ft_putchar('-');
-		nbr = -nbr;
+		n = -n;
 	}
-	if (nbr > 9)
-		ft_putnbr(nbr / 10);
-	ft_putchar(nbr % 10 + '0');
+	if (n > 9)
+		ft_putnbr(n / 10);
+	ft_putchar(n % 10 + '0');
 }
 
-int is_prime(int nbr)
+int	ft_atoi(char *str)
 {
-    int i;
+	int	result;
+	int	signal;
+	int	i;
 
-    i = 2;
-    if (nbr < 2)
-        return (0);
-    if (nbr % 2 == 0)
-        return (1);
+	result = 0;
+	signal = 1;
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			signal = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result * signal);
 }
 
-void    add_prime_sum(char *str)
+void	add_prime_sum(int nbr)
 {
-    long    nbr = ft_atoi(str);
-    long    result;
-    long    i = 2;
+	int	i;
+	int	result;
 
-    result = 0;
-
-    if (nbr < 1)
-    {
-        write(1, "0", 1);
-        return;
-    }
-    while (i <= nbr)
-    {
-        if ()
-    }
-
+	i = 0;
+	result = 0;
+	while (i <= nbr)
+	{
+		if (is_prime(i))
+			result = result + i;
+		i++;
+	}
+	ft_putnbr(result);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    if (argc == 2)
-        add_prime_sum(argv[1]);
-    write(1, "\n", 1);
+	long	nbr;
+
+	if (argc == 2)
+	{
+		nbr = ft_atoi(argv[1]);
+		if (nbr >= 0)
+			add_prime_sum(nbr);
+	}
+	else
+		write(1, "0", 1);
+	write(1, "\n", 1);
 }
 
 /*
-
 Assignment name  : add_prime_sum
 Expected files   : add_prime_sum.c
 Allowed functions: write, exit
@@ -104,5 +124,4 @@ $>./add_prime_sum 7 | cat -e
 $>./add_prime_sum | cat -e
 0$
 $>
-
 */
