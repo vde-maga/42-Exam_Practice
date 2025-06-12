@@ -22,19 +22,19 @@
 - [x] ft_atoi
 - [x] ft_strcmp
 - [x] ft_strcspn
-- [ ] ft_strdup
-- [ ] ft_strpbrk
-- [ ] ft_strrev
-- [ ] ft_strspn
-- [ ] inter
-- [ ] is_power_of_2
-- [ ] last_word
-- [ ] max
-- [ ] print_bits
-- [ ] reverse_bits
-- [ ] snake_to_camel
-- [ ] swap_bits
-- [ ] union
+- [x] ft_strdup
+- [x] ft_strpbrk
+- [x] ft_strrev
+- [x] ft_strspn
+- [x] inter
+- [x] is_power_of_2
+- [x] last_word
+- [x] max
+- [x] print_bits
+- [x] reverse_bits
+- [x] snake_to_camel
+- [x] swap_bits
+- [x] union
 - [ ] wdmatch
 
 ## Level 03
