@@ -1,11 +1,14 @@
 int		max(int* tab, unsigned int len)
 {
+
+    if (len == 0)
+        return (0);
     unsigned int    i;
     int result;
 
-    i = 1;
+    i = 1; // Comecamos em um, porque ja copiamos o valor 0
     result = tab[0];
-    while (i < len)
+    while (i < len) // nao colocamos i <= len, pois iria aceder a elementos fora do array de inteiros
     {
         if (tab[i] > result)
             result = tab[i];
