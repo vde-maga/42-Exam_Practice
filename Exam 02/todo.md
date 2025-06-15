@@ -42,7 +42,7 @@
 - [x] add_prime_sum
 - [ ] epur_str
 - [ ] expand_str
-- [ ] ft_atoi_base
+- [x] ft_atoi_base
 - [x] ft_list_size
 - [x] ft_range
 - [ ] ft_rrange
