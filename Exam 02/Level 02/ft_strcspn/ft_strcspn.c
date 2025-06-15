@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <stdio.h>
+#include <stdio.h> // necessario para o size_t
 
 size_t	ft_strcspn(const char *s, const char *reject)
 {

@@ -44,7 +44,7 @@
 - [ ] expand_str
 - [ ] ft_atoi_base
 - [x] ft_list_size
-- [ ] ft_range
+- [x] ft_range
 - [ ] ft_rrange
 - [x] hidenp
 - [x] lcm
