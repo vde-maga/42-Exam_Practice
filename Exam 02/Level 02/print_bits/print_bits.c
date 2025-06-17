@@ -26,7 +26,15 @@ void	print_bits(unsigned char octet)
 		i--;
 	}
 }
-
+/*
+int	main(void)
+{
+	unsigned char value = 42; // Exemplo: 42 em binário é 00101010
+	print_bits(value);
+	write(1, "\n", 1);
+	return (0);
+}
+*/
 /*
 Assignment name  : print_bits
 Expected files   : print_bits.c
