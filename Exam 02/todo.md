@@ -35,23 +35,23 @@
 - [x] snake_to_camel
 - [x] swap_bits
 - [x] union
-- [ ] wdmatch
+- [x] wdmatch
 
 ## Level 03
 
 - [x] add_prime_sum
-- [ ] epur_str
-- [ ] expand_str
+- [x] epur_str
+- [x] expand_str
 - [x] ft_atoi_base
 - [x] ft_list_size
 - [x] ft_range
-- [ ] ft_rrange
+- [x] ft_rrange
 - [x] hidenp
 - [x] lcm
 - [ ] paramsum
 - [ ] pgcd
 - [x] print_hex
-- [ ] rstr_capitalizer
+- [x] rstr_capitalizer
 - [ ] str_capitalizer
 - [ ] tab_mult 
 
@@ -60,10 +60,10 @@
 - [ ] flood_fill
 - [x] fprime
 - [x] ft_itoa
-- [ ] ft_list_foreach
+- [x] ft_list_foreach
 - [ ] ft_list_remove_if
-- [ ] ft_split
-- [ ] rev_wstr
+- [x] ft_split
+- [x] rev_wstr
 - [x] rostring
 - [ ] sort_int_tab
 - [ ] sort_list
