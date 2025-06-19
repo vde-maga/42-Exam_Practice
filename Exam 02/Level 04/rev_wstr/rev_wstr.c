@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+
 int	is_space(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n');
@@ -26,29 +27,32 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+
 void	rev_wstr(char *str)
 {
 	int	i;
-	int	end;
-	int	first;
+	int	end_of_word;
+	int	first_word_without_space_check;
 
 	i = ft_strlen(str) - 1;
-	first = 1;
+	first_word_without_space_check = 0;
+
 	while (i >= 0)
 	{
-		/* pula espaços à direita da próxima palavra */
 		while (i >= 0 && is_space(str[i]))
 			i--;
-		if (i < 0) /* chegou ao começo da string */
-			break ;
-		end = i; /* índice do último char da palavra */
-		/* anda até o char ANTES do primeiro da palavra */
+		if (i < 0)
+			break;
+		end_of_word = i;
 		while (i >= 0 && !is_space(str[i]))
 			i--;
-		if (!first) /* espaço entre as palavras */
+		// Escrever apenas um espaco em branco quando a primeira palavra ja foi escrita
+		if (first_word_without_space_check == 1)
 			write(1, " ", 1);
-		write(1, &str[i + 1], end - i); /* imprime a palavra */
-		first = 0;
+		// Escrever i + 1, ou seja, a letra e nao o espaco, o numero de vezes equivalente ao tamanho da palavra
+		write(1, &str[i + 1], end_of_word - i);
+		// Depois de passado uma vez o loop, ou seja, a primeira palavra escrita, faz com que o if de escrita seja sempre ativo
+		first_word_without_space_check = 1;
 	}
 }
 
@@ -56,8 +60,7 @@ int	main(int argc, char **argv)
 {
 	if (argc == 2)
 		rev_wstr(argv[1]);
-	write(1, "\n", 1);
-	return (0);
+	write (1, "\n", 1);
 }
 
 /*
