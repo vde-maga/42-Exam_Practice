@@ -52,7 +52,7 @@
 - [ ] pgcd
 - [x] print_hex
 - [x] rstr_capitalizer
-- [ ] str_capitalizer
+- [x] str_capitalizer
 - [ ] tab_mult 
 
 ## Level 04
