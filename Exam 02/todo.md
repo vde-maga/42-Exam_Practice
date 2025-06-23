@@ -66,4 +66,4 @@
 - [x] rev_wstr
 - [x] rostring
 - [ ] sort_int_tab
-- [ ] sort_list
+- [x] sort_list
