@@ -48,7 +48,7 @@
 - [x] ft_rrange
 - [x] hidenp
 - [x] lcm
-- [ ] paramsum
+- [x] paramsum
 - [ ] pgcd
 - [x] print_hex
 - [x] rstr_capitalizer
