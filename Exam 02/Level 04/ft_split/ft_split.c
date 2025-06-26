@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vde-maga <vde-maga@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/26 15:49:17 by vde-maga          #+#    #+#             */
+/*   Updated: 2025/06/25 16:11:52 by vde-maga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 
 int	is_space(char c)
@@ -5,28 +17,28 @@ int	is_space(char c)
 	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-int	ft_total_strings(char *str)
+int	ft_words_count(char *str)
 {
 	int	i;
-	int	count;
+	int	word;
 
-	if (!str)
-		return (0);
-	count = 0;
 	i = 0;
+	word = 0;
 	while (str[i])
 	{
-		while (str[i] && is_space(str[i]))
+		while (is_space(str[i]))
 			i++;
 		if (str[i])
-			count++;
-		while (str[i] && !is_space(str[i]))
-			i++;
+		{
+			word++;
+			while (str[i] && !is_space(str[i]))
+				i++;
+		}
 	}
-	return (count);
+	return (word);
 }
 
-int	ft_word_length(char *str)
+int	ft_word_size(char *str)
 {
 	int	i;
 
@@ -36,18 +48,18 @@ int	ft_word_length(char *str)
 	return (i);
 }
 
-char	*ft_word(char *str)
+char	*ft_get_word(char *str)
 {
-	int		len_word;
 	int		i;
-	char	*word;
+	int		word_size; // Quantas letras tem a palavra
+	char	*word; // Array a Devolver
 
 	i = 0;
-	len_word = ft_word_length(str);
-	word = (char *)malloc(sizeof(char) * (len_word + 1));
+	word_size = ft_word_size(str); // Ir saber quantas letras tem a palavra
+	word = (char *)malloc(sizeof(char) * (word_size + 1)); // Colocar o espaco de letras + '\0'
 	if (!word)
 		return (NULL);
-	while (i < len_word)
+	while (str[i] && !is_space(str[i])) // Enquanto string for verdadeira e uma letra, coloca conteudo em word
 	{
 		word[i] = str[i];
 		i++;
@@ -56,71 +68,35 @@ char	*ft_word(char *str)
 	return (word);
 }
 
-void	*ft_free_memory(char **strings, int i)
-{
-	while (i-- > 0)
-		free(strings[i]);
-	free(strings);
-	return (NULL);
-}
-
 char	**ft_split(char *str)
 {
-	char	**strings;
-	int		i;
+	char	**dest; // O que Entregar
+	int		size; // Quantas Palavras Existem na String Original / Quantos Arrays Precisamos Criar
+	int		i; // index de dest
+	int		j; // index de str
 
-	if (!str)
-		return (NULL);
+	size = ft_words_count(str); // Saber Numeros de Palavras
 	i = 0;
-	strings = (char **)malloc(sizeof(char *) * (ft_total_strings(str) + 1));
-	if (!strings)
+	j = 0;
+	dest = (char **)malloc(sizeof(char *) * (size + 1)); // Alocar Numero de Palavras + NUll LEMBRAR DOS ()
+	if (!dest)
 		return (NULL);
-	while (*str)
+	while (str[j]) // Percorrer a String Original
 	{
-		if (!is_space(*str))
+		if (!is_space(str[j])) // Se for o Comeco de Uma Palavra
 		{
-			strings[i] = ft_word(str);
-			if (strings[i++] == NULL)
-				return (ft_free_memory(strings, i));
-			str = str + ft_word_length(str);
+			dest[i] = ft_get_word(&str[j]); // Coloca o resto da Palavra, no espaco do primeiro array
+			if (!dest[i])
+				return (NULL);
+			i++;
+			j += ft_word_size(&str[j]); // Anda para a Frente, o resto da palavra
 		}
-		if (*str)
-			str++;
+		else // Continua a procurar uma palavra
+			j++;
 	}
-	strings[i] = NULL;
-	return (strings);
+	dest[i] = NULL;
+	return (dest);
 }
-
-/*
-int	main(void)
-{
-	char	**words;
-	int		i;
-	char	*str;
-	char	delim;
-
-	i = 0;
-	str = "***Eu***GostoMuitoDeGelado***";
-	delim = '*';
-	words = ft_split(str, delim);
-	if (!words)
-	{
-		printf("Erro na alocação de memória.\n");
-		return (1);
-	}
-	printf("String original:\n\"%s\"\n\n", str);
-	printf("Palavras após o split (delimitador '%c'):\n", delim);
-	while (words[i])
-	{
-		printf("Word[%d]: \"%s\"\n", i, words[i]);
-		free(words[i]);
-		i++;
-	}
-	free(words);
-	return (0);
-}
-*/
-
 /*
 Assignment name  : ft_split
 Expected files   : ft_split.c
@@ -135,5 +111,5 @@ lines, or by the start/end of the string.
 
 Your function must be declared as follows:
 
-char	**ft_split(char *str);
+char    **ft_split(char *str);
 */
