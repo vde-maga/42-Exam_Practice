@@ -1,142 +1,119 @@
+
+#include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-#define BUFFER_SIZE 42
+#define BUFFER_SIZE 109
 
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	ft_filter(char *message, const char *find)
+void	ft_filter(char *haystack, char *needle)
 {
 	int	i;
 	int	j;
 	int	k;
-	int	find_lenght;
+	int	needle_size;
 
 	i = 0;
-	find_lenght = ft_strlen(find);
+	needle_size = strlen(needle);
+
 	/*
-	 * Percorrer a mensagem recebida
+	* Percorre haystack
+	* Se a primeira ocorrencia de needle, for igual a haystack, entao, compara ate ao fim
+		* No caso, comparo i + j, para ter a certeza que sao os valores certos das duas strings
+			* abcdefabc // abc
+				* 0 + 0 // 0
+				* 0 + 1 // 1
+				* 0 + 2 // 2
+	* No final da comparacao, verifico se e do mesmo tamanho da needle
+	* Se for, entao, escreve K vezes o *
+		* Incremento tambem o i, com o tamanho da needle, para skippar os chars que nao quero
+	* Se nao, apenas escreve normal
 	*/
-	while (message[i])
+	while (haystack[i])
 	{
 		j = 0;
-		/*
-		 * Verificar se estou num intervalo onde
-		 *
-		 * a mensagem = o que encontrar
-		 *
-		 * Se for, incrementa o J
-		*/
-		while (find[j] && message[i + j] == find[j])
+		while (needle[j] && (haystack[i + j] == needle[j]))
 			j++;
-
-		/*
-		 * Se o J for do mesmo tamanho do Find, entao significa que houve
-		 * correspondencia
-		*/
-		if (j == find_lenght)
+		if (j == needle_size)
 		{
-			/*
-			 * Com correspondencia, escreve * as vezes necessarias
-			 *
-			 * +
-			 *
-			 * no final, incrementa o i, o numero de vezes, para
-			 * skippar as letras a omitir
-			*/
 			k = 0;
-			while (k < find_lenght)
+			while (k < needle_size)
 			{
 				write(1, "*", 1);
 				k++;
 			}
-			i = i + find_lenght;
+			i = i + needle_size;
 		}
-		/*
-		 * Se nao houve correspondencia, entao, escreve normal
-		*/
 		else
 		{
-			write(1, &message[i], 1);
+			write(1, &haystack[i], 1);
 			i++;
 		}
 	}
+
 }
+
 
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
+	{
+		perror("Error: Invalid Number of Arguments");
 		return (1);
+	}
 
-	// copo que sera usado para encher o balde
-	char	temp[BUFFER_SIZE];
-	// balde que sera enchido pelo copo e sera entregue para a funcao
-	char	*stdio_message;
-	// intermedio para nao perder a informacao do balde
-	// desta forma, nunca perdemos nada dentro de stdio_message
-	char	*buffer;
-	// saber quantos copos foram usados para encher o balde, para no final
-	// alocar os copos certos
-	int	total_reads;
-	// check dos bytes lidos, para ver se realmnete foi possivel ler
-	ssize_t	bytes;
+	char	tmp[BUFFER_SIZE];
+	char	*dest;
+	int	total_bytes_read;
+	ssize_t	bytes_read;
 
-	total_reads = 0;
-	stdio_message = NULL;
+	total_bytes_read = 0;
+	dest = NULL;
 
 	/*
-	 * armazena todo o conteudo, dentro de temp, para ser colocado em buffer
-	 *
-	 * 1. Tenta encher o copo com read
-	 * 	1. armazena o conteudo lido no copo
-	 * 	2. le BUFFER_SIZE de litros de agua
-	 * 2. Guarda os litros lidos em bytes, para ver se vale a pena continuar ou nao o loop
-	 * 	1. Se 0, fim do ficheiro
-	 * 	2. Se menor que 0, houve erro
-	 * 	3. Se maior que 0, entao leu coisas
+	* Loop de Leitura
+	* Leio por partes/BUFFER_SIZE o conteudo no STDIO
+	* Guardando quantos bytes foram lidos, no momento
 	*/
-	while ((bytes = read(0, temp, BUFFER_SIZE)) > 0)
+
+	while ((bytes_read = read(0, tmp, BUFFER_SIZE)) > 0)
 	{
+
 		/*
-		 * Aumenta o tamanho do balde, com base nos litros de agua e
-		 * copos que temos
+		* Com os bytes lidos no momento, eu incremento a uma variavel total, para saber quanto deve ser o tamanho de dest
+		* Dest, no caso, esta sempre a ser incrementada, com realloc e sera a variavel final
 		*/
-		buffer = realloc(stdio_message, total_reads + bytes + 1);
-		if (!buffer)
+		dest = realloc(dest, total_bytes_read + bytes_read + 1);
+		if (!dest)
 		{
-			free(stdio_message);
-			perror("realloc");
+			free(dest);
+			perror("Error: realloc");
 			return (1);
 		}
-		// Apontar o balde, para o comeco do copo
-		stdio_message = buffer;
-		// Copiar a agua do copo (temp), para o final do balde (stdio_message)
-		memmove(stdio_message + total_reads, temp, bytes);
-		// atualizar quantos copos foram usados
-		total_reads = total_reads + bytes;
-		// null pointer do balde
-		stdio_message[total_reads] = '\0';
+		/*
+		*	transporto tudo o que ficou dentro da temp/buffer, para a dest, com o memmove
+		* 	ele ja faz com que dest, aponte para o comeco da mesma, nao preciso me preocupar com isso
+		*/
+		memmove(dest, tmp, bytes_read);
+		/*
+		* Incremento o tamanho de bytes lidos, para as multiplas chamadas do while loop
+		*/
+		total_bytes_read = total_bytes_read + bytes_read;
+		/*
+		* NULL character sempre no final, para validar a string
+		* Nao preciso me preocupar com o nulo se colocar no meio da string, pois memmove da overlap
+		*/
+		dest[total_bytes_read] = '\0';
 	}
-	// Check de Erros
-	if (bytes < 0)
+	if (bytes_read < 0)
 	{
-		perror("read");
-		free(stdio_message);
+		perror("Error: read");
+		free(dest);
 		return (1);
 	}
-	if (!stdio_message)
+	if (!dest)
 		return (0);
-	ft_filter(stdio_message, argv[1]);
-	free(stdio_message);
+	ft_filter(dest, argv[1]);
+	free(dest);
 	return (0);
 }
