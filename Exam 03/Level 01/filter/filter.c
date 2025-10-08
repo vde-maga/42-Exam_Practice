@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 		*	transporto tudo o que ficou dentro da temp/buffer, para a dest, com o memmove
 		* 	ele ja faz com que dest, aponte para o comeco da mesma, nao preciso me preocupar com isso
 		*/
-		memmove(dest, tmp, bytes_read);
+		memmove(dest + total_bytes_read, tmp, bytes_read);
 		/*
 		* Incremento o tamanho de bytes lidos, para as multiplas chamadas do while loop
 		*/
