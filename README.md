@@ -13,3 +13,9 @@ For Exam Rank 02, GradeMe doesn't show all the possible exercises that could be 
 ![Exam Rank 03 Screenshot](/screenshots/exam_rank_03.png)
 
 For the rank 3 exam, I took care to learn as much as possible about recursion, more specifically, the technique of recursion with backtracking, since most level 2 exercises can be solved using this technique. In addition, I solidified my knowledge of how to work with memory in C.
+
+## Exam Rank 04
+
+![Exam Rank 04 Screenshot](/screenshots/exam_rank_04.png)
+
+For the Rank 04 exam, I used the [42_examshell](https://github.com/terminal-42s/42_examshell) tool and also tried to create mains to determine whether my code’s behavior was valid for a solution to the problem. I didn’t trust 42_examshell 100%, especially for the VBC exercise, because I felt the problem statement asked for something more complex than it actually was. This exam really helped me learn the concepts of pipes, forks, and the use of signals. I already had this knowledge, having learned it in Minishell, but here it was reinforced, since in an exam environment, I have no help.
